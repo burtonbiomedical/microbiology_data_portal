@@ -1,0 +1,31 @@
+<!--View template for the register page-->
+<div class="row">
+  <div class="col-md-6 mx-auto">
+    <div class="card card-body">
+      <h3 class="text-left">
+      <i class="fas fa-key"></i>
+        Request an Account
+      </h3>
+      <p class="lead">
+        Due to the nature of the data handled here, account requests must be authorised manually. Please be patient whilst we process your request.
+      </p>
+      <form action="https://formspree.io/Ross.Burton@nbt.nhs.uk" method="POST">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" name="name" value="{{name}}" required>
+        </div>
+        <div class="form-group">
+          <label for="_replyto">Email</label>
+          <input type="email" class="form-control" name="_replyto" value="{{email}}" required>
+        </div>
+        <div class="form-group">
+          <label for="message">What is it you would like to use our data for?</label>
+          <textarea placeholder="Tell us a bit about yourself/your project" class="form-control" name="message" required></textarea>
+        </div>
+        <input type="hidden" name="_subject" value='Data Portal Account Request' />
+        <input type="text" name="_gotcha" style="display:none" />
+        <input type="submit" value="Send" class="btn btn-dark">
+      </form>
+    </div>
+  </div>
+</div>

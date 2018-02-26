@@ -1,0 +1,30 @@
+<!--View template for the register page-->
+<div class="row">
+  <div class="col-md-6 mx-auto">
+    <div class="card card-body">
+      <h3 class="text-left">
+      <i class="fas fa-key"></i>
+        Register an account
+      </h3>
+      <form action="/users/register" method="post">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" name="name" value="{{name}}" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" name="email" value="{{email}}" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" name="password" required>
+        </div>
+        <div class="form-group">
+          <label for="passwordConf">Confirm password</label>
+          <input type="password" class="form-control" name="passwordConf" required>
+        </div>
+        <button type="submit" class="btn btn-dark">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>

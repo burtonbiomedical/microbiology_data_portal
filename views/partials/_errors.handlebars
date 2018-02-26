@@ -1,0 +1,19 @@
+<!--This partial renders the view for error messages-->
+<!--if passport returns error, then output message-->
+{{#if error}}
+  <div class="alert alert-danger alert-dismissable">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <!--text is a property of errors, so we can access it implicitly within the loop-->
+    {{error}}
+  </div>
+{{/if}}
+<!--The #each command is how we loop through objects in handlebars-->
+{{#each errors}}
+  <div class="alert alert-danger alert-dismissable">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <!--text is a property of errors, so we can access it implicitly within the loop-->
+    {{text}}
+  </div>
+{{else}}
+
+{{/each}}

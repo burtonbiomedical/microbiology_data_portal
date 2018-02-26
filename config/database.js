@@ -1,5 +1,5 @@
 if(process.env.NODE_ENV === 'production'){
   module.exports = {mongoURL: ''}
 }else{
-  module.exports = {mongoURL: 'mongodb://localhost/vitek-dev'}
+  module.exports = {mongoURL: 'mongodb://localhost:27017/vitekAlpha'}
 }

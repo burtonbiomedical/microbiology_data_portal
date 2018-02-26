@@ -1,0 +1,39 @@
+<div class="container">
+  <h1 class="text-center">{{bug}}</h1>
+  <p class="lead text-center">Below you can find the search results for {{bug}}. The correlation matrix below is a heatmap that demonstrates
+    existing correlations between antimicrobial MIC values.
+  </p>
+  <h3 class='mt-5'>Correlation Matrix</h3>
+  <p>The correlation coefficient is calculated using the Person Correlation Coefficient. As of the Alpha build 2.0 p-values are not shown and it should be noted
+    that data is <i>not</i> normalised. These changes will be made in the beta release.
+  </p>
+  <img class='img-thumbnail text-center mt-4' src="../{{result_paths.correlation_matrix}}" alt="correlation matrix">
+
+  <div class="card card-inverse m-5" style="background-color: #505254; border-color: #333;">
+    <div class="card-block p-2">
+      <h3 class="card-title text-white">Download MIC Data</h3>
+      <p class="card-text text-white">Use the link below to download all the MIC data for this organism, corresponding to your requested date range</p>
+      <a href="#" class="btn btn-success">Download  <i class="far fa-file-excel"></i></a>
+    </div>
+  </div>
+
+  <h3>Choose an Antibiotic of interest for more info</h3>
+  <div class="lead">
+    Use the drop down menu below to choose an antibiotic, and on the next page will be displayed some descriptive statistics, distribution curves, and mean MIC trends over the chosen time span.
+  </div>
+  <form action="/vitek/antibiotic" method="post">
+    <div class="form-group mt-4 mb-6">
+      <label class="lead mt-2" for="selectDrug"><img style="width: 30px" src="../img/drug.png"> Choose Antimicrobial</label>
+      <select class="form-control" id="selectDrug" name="selectDrug">
+        {{#each allDrugs}}
+          <option name="chosenDrug">{{name}}</option>
+        {{/each}}
+      </select>
+    </div>
+    <input type="hidden" name='bug' value="{{bug}}">
+    <input type="hidden" name='start_date' value="{{start_date}}">
+    <input type="hidden" name='end_date' value="{{end_date}}">
+    <button class="btn btn-outline-dark btn-block mt-4 mb-10" type='submit'>Next</button>
+  </form>
+</div>
+

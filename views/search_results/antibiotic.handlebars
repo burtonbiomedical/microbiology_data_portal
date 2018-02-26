@@ -1,0 +1,30 @@
+<div class="container">
+  <h1 class="text-center">{{bug}} -- {{drug}}</h1>
+  <div class="row">
+    <div class="col-6">
+      Corrected - outliers > 3SD removed
+      <img class='img-thumbnail text-center mt-4' src="../{{result.Mean_MIC_trend_without_sd_remove_outliers}}" alt="correlation matrix">
+    </div>
+    <div class="col-6">
+      <img class='img-thumbnail text-center mt-4' src="../{{result.Mean_MIC_trend_without_sd}}" alt="correlation matrix">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      Corrected - outliers > 3SD removed
+      <img class='img-thumbnail text-center mt-4' src="../{{result.Mean_MIC_trend_with_sd_remove_outliers}}" alt="correlation matrix">
+    </div>
+    <div class="col-6">
+      <img class='img-thumbnail text-center mt-4' src="../{{result.distribution_curve_raw}}" alt="correlation matrix">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      Corrected - outliers > 3SD removed
+      <img class='img-thumbnail text-center mt-4' src="../{{result.distribution_curve_without_outliers}}" alt="correlation matrix">
+    </div>
+    <div class="col-6">
+
+    </div>
+  </div>
+</div>

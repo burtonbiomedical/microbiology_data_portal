@@ -1,0 +1,15 @@
+{{#if success_msg}}
+  <div class="alert alert-success alert-dismissable">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <!--Here we access the global variable defined in app.js-->
+    {{success_msg}}
+  </div>
+{{/if}}
+
+{{#if error_msg}}
+  <div class="alert alert-danger alert-dismissable">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <!--Here we access the global variable defined in app.js-->
+    {{error_msg}}
+  </div>
+{{/if}}
