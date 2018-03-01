@@ -69,37 +69,18 @@ router.post('/organism', (request, response) => {
   
   PythonShell.run('MIC_Data_Exploration_Tools.py', options, (err, results) => {
     if (err) throw err;
-
-    MongoClient.connect(db.mongoURL, (err, client) => {
-      if (err) throw err;
-      const db = client.db('vitekAlpha');
-      db.collection('reference_data').find().toArray((err, docs) => {
-        if (err) throw err;
-        var drugs = docs[0]['drugs'];
-        var compare = (a,b) => {
-          if (a.name < b.name)
-            return -1;
-          if (a.name > b.name)
-            return 1;
-          return 0;
-        };
-        var allDrugs = drugs.sort(compare);
-
         result_paths = JSON.parse(results[0])
-        console.log(result_paths)
         response.render('search_results/organism', {
           result_paths: result_paths, 
           bug: bug, 
           start_date: startDate, 
           end_date: endDate, 
           userID:args['userID'],
-          allDrugs: allDrugs
+          relevantDrugs: result_paths['relevant_antibiotics']
         });
       });
-      client.close();
   })
-});
-});
+
 
 router.post('/antibiotic', (request, response) => {
   if (request.body.start_date && request.body.end_date){
@@ -123,24 +104,27 @@ router.post('/antibiotic', (request, response) => {
   PythonShell.run('MIC_Data_Exploration_Tools.py', options, (err, results) => {
     if (err) throw err;
     result = JSON.parse(results[0])
-    console.log(result)
-    // var stats;
-    // fs.readFile(result.descriptive_stats, 'utf8', (err, data) => {
-    //   if (err) throw err;
-    //   stats = JSON.parse(data);
-    // });
-    // console.log(stats)
-    response.render('search_results/antibiotic', {
-      result: result, 
-      bug: request.body.bug,
-      drug: request.body.selectDrug,
-      start_date: request.body.startDate, 
-      end_date: request.body.endDate, 
-      userID: args['userID']
+    fs.readFile('user_data'+ result.descriptive_stats, 'utf8', (err, data) => {
+      if (err) throw err;
+      var stats = JSON.parse(data);
+      stats['Percentage_of_isolates'] = ((stats['Total_antibiotic_data_points']/stats['Total_Isolates'])*100).toFixed(2)
+      // fs.readFile('user_data'+result.timeseries, 'utf8', (err, data) => {
+      //   if (err) throw err;
+      //   var timeseries = JSON.parse(data);
+      //   //console.log(timeseries);
+        response.render('search_results/antibiotic', {
+          result: result, 
+          bug: request.body.bug,
+          drug: request.body.selectDrug,
+          start_date: request.body.startDate, 
+          end_date: request.body.endDate, 
+          userID: args['userID'],
+          stats: stats
+      })
     });
   });
-  console.log(request.body)
 });
+
 
 router.get('/download/:userID', (req, res) => {
   console.log(req.params)

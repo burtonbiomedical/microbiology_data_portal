@@ -9,15 +9,15 @@
   <!--Font Awesome CDN-->
   <script defer src="https://use.fontawesome.com/releases/v5.0.4/js/all.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="styles.css">
   <title>Microbiology Data Portal</title>
 </head>
 <body>
   {{> _navbar}}
-  <div class="container p-b-10">
+  <div class="container">
     {{> _msg}}
     {{> _errors}}
     {{{body}}}
   </div>
-  <div class="m-t-8">
-    {{> _footer}}
-  </div>
+  <div class="push"></div>
+  {{> _footer}}

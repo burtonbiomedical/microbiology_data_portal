@@ -25,8 +25,8 @@
     <div class="form-group mt-4 mb-6">
       <label class="lead mt-2" for="selectDrug"><img style="width: 30px" src="../img/drug.png"> Choose Antimicrobial</label>
       <select class="form-control" id="selectDrug" name="selectDrug">
-        {{#each allDrugs}}
-          <option name="chosenDrug">{{name}}</option>
+        {{#each relevantDrugs}}
+          <option name="chosenDrug">{{ this }}</option>
         {{/each}}
       </select>
     </div>

@@ -1,30 +1,107 @@
+<style>
+.zoom {
+    padding: 0px;
+    transition: transform .2s; /* Animation */
+    width: 500px;
+    height: 300px;
+    margin: 0 auto;
+}
+
+.zoom:hover {
+    transform: scale(1.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+</style>
+
 <div class="container">
   <h1 class="text-center">{{bug}} -- {{drug}}</h1>
-  <div class="row">
+    <h3 class="mt-3 mb-2">Descriptive Statistics</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope='col'>Statistic</th>
+          <th scope='col'>Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope='row'>Total Data Points</th>
+          <td>{{stats.Total_antibiotic_data_points}}</th>
+        </tr>
+        <tr>
+          <th scope='row'>Percentage of total isolates with antimicrobial data</th>
+          <td>{{stats.Percentage_of_isolates}}</th>
+        </tr>
+        <tr>
+          <th scope='row'>Newest Data Point</th>
+          <td>{{stats.Newest_data_point}}</th>
+        </tr>
+        <tr>
+          <th scope='row'>Oldest Data Point</th>
+          <td>{{stats.Oldest_data_point}}</th>
+        </tr>
+        <tr>
+          <th scope='row'>Mean MIC</th>
+          <td>{{stats.Mean}}</th>
+        </tr>
+        <tr>
+          <th scope='row'>Standard Deviation</th>
+          <td>{{stats.SD}}</th>
+        </tr>
+        <tr>
+          <th scope='row'>Min MIC</th>
+          <td>{{stats.Min}}</th>
+        </tr>
+        <tr>
+          <th scope='row'>Max MIC</th>
+          <td>{{stats.Max}}</th>
+        </tr>
+        <tr>
+          <th scope='row'>Median MIC</th>
+          <td>{{stats.Median}}</th>
+        </tr>
+        <tr>
+          <th scope='row'>Sample variance</th>
+          <td>{{stats.Sample_variance}}</th>
+        </tr>
+        <tr>
+          <th scope='row'>Kurtosis</th>
+          <td>{{stats.Kurtosis}}</th>
+        </tr>
+        <tr>
+          <th scope='row'>Skewness</th>
+          <td>{{stats.Skewness}}</th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <h3 class="mt-4 mb-2">Total isolates tested, and MIC distributon</h3>
+  <div class="row mt-3">
     <div class="col-6">
-      Corrected - outliers > 3SD removed
-      <img class='img-thumbnail text-center mt-4' src="../{{result.Mean_MIC_trend_without_sd_remove_outliers}}" alt="correlation matrix">
+      <img class='img-thumbnail text-center mt-4 zoom' src="../{{result.total_isolates}}" alt="totals">
     </div>
     <div class="col-6">
-      <img class='img-thumbnail text-center mt-4' src="../{{result.Mean_MIC_trend_without_sd}}" alt="correlation matrix">
+      <img class='img-thumbnail text-center mt-4 zoom' src="../{{result.distribution_curve_raw}}" alt="distribution">
     </div>
   </div>
-  <div class="row">
+  <h3 class="mt-4 mb-2">Mean MIC trend over time</h3>
+  <div class="row mt-3">
     <div class="col-6">
-      Corrected - outliers > 3SD removed
-      <img class='img-thumbnail text-center mt-4' src="../{{result.Mean_MIC_trend_with_sd_remove_outliers}}" alt="correlation matrix">
+      <img class='img-thumbnail text-center mt-4 zoom' src="../{{result.Mean_MIC_trend_with_sd}}" alt="mean">
     </div>
     <div class="col-6">
-      <img class='img-thumbnail text-center mt-4' src="../{{result.distribution_curve_raw}}" alt="correlation matrix">
+      <img class='img-thumbnail text-center mt-4 zoom' src="../{{result.Mean_MIC_trend_without_sd}}" alt="mean no sd">
     </div>
   </div>
+  <h3 class="mt-4 mb-2">Mean MIC trend over time, corrected for outliers</h3>
   <div class="row">
+    <p class="lead">Outliers were classified as any data points that exceeded 3 standard deviations away from the mean MIC 
+      of the entire dataset, and were subsequently removed.
+    </p>
     <div class="col-6">
-      Corrected - outliers > 3SD removed
-      <img class='img-thumbnail text-center mt-4' src="../{{result.distribution_curve_without_outliers}}" alt="correlation matrix">
+      <img class='img-thumbnail text-center mt-4 zoom' src="../{{result.Mean_MIC_trend_with_sd_remove_outliers}}" alt="mean no outliers">
     </div>
     <div class="col-6">
-
+      <img class='img-thumbnail text-center mt-4 zoom' src="../{{result.Mean_MIC_trend_without_sd_remove_outliers}}" alt="mean no outliers no sd">
     </div>
   </div>
 </div>
