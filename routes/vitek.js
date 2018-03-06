@@ -6,14 +6,13 @@ const ObjectID = require('mongodb').ObjectId;
 const db = require('../config/database');
 const PythonShell = require('python-shell');
 const spawn = require('child_process').spawn
-const pythonFile = '/home/rossco/Documents/Data Science Portfolio/vitek_project/MIC Data Exploration Tools/MIC_Data_Exploration_Tools.py'
 const fs = require('fs');
 
 var options = {
   mode: 'text',
   pythonPath: '/usr/bin/python',
   pythonOptions: ['-u'],
-  scriptPath: '/home/rossco/Documents/Data Science Portfolio/vitek_project/MIC Data Exploration Tools/',
+  scriptPath: 'python_scripts/',
   args: ''
 }
 
@@ -108,10 +107,6 @@ router.post('/antibiotic', (request, response) => {
       if (err) throw err;
       var stats = JSON.parse(data);
       stats['Percentage_of_isolates'] = ((stats['Total_antibiotic_data_points']/stats['Total_Isolates'])*100).toFixed(2)
-      // fs.readFile('user_data'+result.timeseries, 'utf8', (err, data) => {
-      //   if (err) throw err;
-      //   var timeseries = JSON.parse(data);
-      //   //console.log(timeseries);
         response.render('search_results/antibiotic', {
           result: result, 
           bug: request.body.bug,

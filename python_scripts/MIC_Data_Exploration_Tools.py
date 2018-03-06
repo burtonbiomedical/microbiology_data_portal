@@ -15,6 +15,7 @@ import json
 from itertools import chain
 from collections import defaultdict
 import math
+from utilities import mkdir_p, read_in, shred_string, remove_drugs
 
 class ExtractData:
     def __init__(self, db_name, mongo_client):
@@ -198,6 +199,7 @@ class ProcessData():
                 'Sample_variance': round(antibiotic_data.var(),3),
                 'Skewness': round(antibiotic_data.skew(),3),
                 'Kurtosis': round(antibiotic_data.kurt(),3)}
+            
         except:
             stats = {'error': 'error - unable to generate statistic'}
             return error_path
@@ -353,56 +355,11 @@ def create_figures(myargs, save_path, pickle_file, start_date, end_date):
         data_locations['Mean_MIC_trend_with_sd_remove_outliers'] = processing_data.antibiotic_trend_analysis(antibiotic=drug, save_path=data_locations['Mean_MIC_trend_with_sd_remove_outliers'], remove_outliers=3,error_path=data_locations['error_path'])
         data_locations['Mean_MIC_trend_with_sd'] = processing_data.antibiotic_trend_analysis(antibiotic=drug, save_path=data_locations['Mean_MIC_trend_with_sd'],error_path=data_locations['error_path'])
         data_locations['total_isolates'] = processing_data.total_isolates_over_time(antibiotic=drug, save_path=data_locations['total_isolates'],error_path=data_locations['error_path'])
-        #timeseries_as_dict = processing_data.antibiotic_timeseries(antibiotic=drug, intervals='3M').to_dict()
-        #timeseries_json_ready = {}
-        #Change timeseries date index to string
-        #for key, val in timeseries_as_dict.items():
-        #    timeseries_json_ready[key] = dict(map(lambda kv: (str(kv[0])[0:10], kv[1]), val.items()))
-        
-        #json_obj = json.dumps(timeseries_json_ready)
-        #with open(data_locations['timeseries'], 'wb') as file:
-        #  file.write(json_obj)
 
-    return data_locations
-    
-def mkdir_p(path):
-    try:
-        os.makedirs(path, mode=0o777)
-    except OSError as exc:
-        if exc.errno == errno.EEXIST and os.path.isdir(path):
-            pass
-        else: raise
-
-def read_in():
-    lines = sys.stdin.readlines()
-    return json.loads(lines[0])
-
-def shred_string(x):
-    if type(x) == dict:
-        new_dict = {}
-        if 'error' in x.keys():
-            return x
-        for key, value in x.items():
-            try:
-                new_dict[key] = value.split('user_data')[1]
-            except:
-                new_dict[key] = value.split('public')[1]
-        return new_dict
-    else:
-        return x.split('user_data')[1]
-
-def remove_drugs(df):
-    new_df = df.copy()
-    for col in df:
-        if pd.isnull(df[col]).sum() > (df.shape[0]*0.95):
-            new_df.drop(col, axis=1)
-    return new_df
+    return data_locations   
 
 if __name__ == '__main__':
     
-    #myargs = getopts(sys.argv)
-    #myargs = read_in()
-    #myargs = json.load(sys.stdin.readlines(), encoding='utf-8')
     myargs = json.loads(sys.argv[1])[0]
     if 'dbname' in myargs.keys():
         dbname = myargs['dbname']
