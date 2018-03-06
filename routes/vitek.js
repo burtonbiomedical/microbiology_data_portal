@@ -51,13 +51,13 @@ router.post('/organism', (request, response) => {
       'dbname': 'vitekAlpha',
       'start_date': startDate,
       'end_date': endDate,
-      'userID': 'Testing',
+      'userID': request.user.id,
       'bug':bug
     }];
   } else {
     var args = [{
       'dbname': 'vitekAlpha',
-      'userID': 'Testing',
+      'userID': request.user.id,
       'bug':bug
     }];
   };
@@ -87,14 +87,14 @@ router.post('/antibiotic', (request, response) => {
       'dbname': 'vitekAlpha',
       'start_date': request.body.start_date,
       'end_date': request.body.end_date,
-      'userID': 'Testing',
+      'userID': request.user.id,
       'bug':request.body.bug,
       'antibiotic': request.body.selectDrug
     }];
   } else {
     var args = [{
       'dbname': 'vitekAlpha',
-      'userID': 'Testing',
+      'userID': request.user.id,
       'bug':request.body.bug,
       'antibiotic': request.body.selectDrug
     }];
