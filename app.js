@@ -52,10 +52,17 @@ app.use(function(request, response, next){
   next();
 });
 
+//Load Helper Functions
+const {ensureAuthenticated} = require('./helpers/auth');
+
+
 //ROUTES
 //Index
 app.get('/', (request, response) => {
   response.render('index');
+})
+app.get('/datasets', ensureAuthenticated, (request, response) => {
+  response.render('datasets')
 })
 
 //Vitek

@@ -1,11 +1,12 @@
 <div class="container">
   <h1 class="text-center">{{bug}}</h1>
-  <p class="lead text-center">Below you can find the search results for {{bug}}. The correlation matrix below is a heatmap that demonstrates
-    existing correlations between antimicrobial MIC values.
+  {{#if start_date}}
+  <h2 class="text-center">{{start_date}} <em>to</em> {{end_date}}</h2>
+  {{/if}}
+  <p class="lead text-center">Below you can find the search results for {{bug}}. The correlation matrix below is a heatmap that demonstrates existing correlations between antimicrobial MIC values. Further down the page you can query individual antimicrobials tested on {{bug}}, and see how MIC values have changed over time. 
   </p>
   <h3 class='mt-5'>Correlation Matrix</h3>
-  <p>The correlation coefficient is calculated using the Person Correlation Coefficient. As of the Alpha build 2.0 p-values are not shown and it should be noted
-    that data is <i>not</i> normalised. These changes will be made in the beta release.
+  <p>The correlation coefficient is calculated using the Person Correlation Coefficient. As of the Alpha build 2.0 p-values are not shown and it should be noted that the correlations shown are a comparison of raw MIC values, and therefore may not be representative of the sensitivity or resistance of an antimicrobial pair.
   </p>
   <img class='img-thumbnail text-center mt-4' src="../{{result_paths.correlation_matrix}}" alt="correlation matrix">
 
@@ -13,13 +14,16 @@
     <div class="card-block p-2">
       <h3 class="card-title text-white">Download MIC Data</h3>
       <p class="card-text text-white">Use the link below to download all the MIC data for this organism, corresponding to your requested date range</p>
-      <a href="#" class="btn btn-success">Download  <i class="far fa-file-excel"></i></a>
+      <form action="/vitek/download", method="post">
+        <input type="hidden" name="bug" value="{{bug}}">
+        <button type="submit" class="btn btn-success">Download  <i class="far fa-file-excel"></i></button>
+      </form>
     </div>
   </div>
 
   <h3>Choose an Antibiotic of interest for more info</h3>
   <div class="lead">
-    Use the drop down menu below to choose an antibiotic, and on the next page will be displayed some descriptive statistics, distribution curves, and mean MIC trends over the chosen time span.
+    Use the drop down menu below to choose an antibiotic, and then click 'next' to see descriptive statistics, distribution curves, and mean MIC trends over the chosen time span.
   </div>
   <form action="/vitek/antibiotic" method="post">
     <div class="form-group mt-4 mb-6">

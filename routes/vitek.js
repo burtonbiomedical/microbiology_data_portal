@@ -7,6 +7,8 @@ const db = require('../config/database');
 const PythonShell = require('python-shell');
 const spawn = require('child_process').spawn
 const fs = require('fs');
+const path = require('path');
+const appDir = path.dirname(require.main.filename);
 
 var options = {
   mode: 'text',
@@ -20,7 +22,7 @@ var options = {
 //LOAD HELPER
 const {ensureAuthenticated} = require('../helpers/auth');
 
-router.get('/', (request, response) => {
+router.get('/', ensureAuthenticated, (request, response) => {
   MongoClient.connect(db.mongoURL, (err, client) => {
     if (err) throw err;
     const db = client.db('vitekAlpha');
@@ -42,7 +44,7 @@ router.get('/', (request, response) => {
 });
 
 
-router.post('/organism', (request, response) => {
+router.post('/organism', ensureAuthenticated, (request, response) => {
   var startDate = request.body['start-date'];
   var endDate = request.body['end-date'];
   var bug = request.body.selectOrg;
@@ -81,7 +83,7 @@ router.post('/organism', (request, response) => {
   })
 
 
-router.post('/antibiotic', (request, response) => {
+router.post('/antibiotic', ensureAuthenticated, (request, response) => {
   if (request.body.start_date && request.body.end_date){
     var args = [{
       'dbname': 'vitekAlpha',
@@ -121,10 +123,9 @@ router.post('/antibiotic', (request, response) => {
 });
 
 
-router.get('/download/:userID', (req, res) => {
-  console.log(req.params)
-  //res.download(__dirname + '/user_data/');
-  res.end();
+router.post('/download', ensureAuthenticated, (req, res) => {
+  console.log(req.body);
+  res.download(`${appDir}/user_data/${req.user.id}/${req.body.bug}/all_mic_data.xlsx`);
 });
 
 module.exports = router;

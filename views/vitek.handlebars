@@ -3,12 +3,13 @@
     Vitek Antimicrobial Dataset
   </h2>
   <p>The PHE Microbiology laboratory in Bristol, UK was an early adopter of automated antimicrobial sensitivity testing. For almost 10 years they have been using a platform Biomerieux Vitek. Using an adapted broth dilution method, the Vitek determines a bacterial isolates mean inhibitory concentration (MIC) for a range of antibiotics, and the uses a suite of software called the "Advanced Expert System" to compare the MIC profile to that of known phenotypes. The Vitek can then determine the sensitivity status of that bacterial isolate for each antibiotic, as well as identifying certain resistance mechanisms that might be present.</p>
-  <p> The reports from the Vitek platform have been regularly archived onto CD-ROMs at the lab in Bristol, and they have accumulated almost 10 years of data. The isolate report information is contained in XML files that can be interpreted by the Vitek software. With these XML files we have populated a noSQL database that can be accessed here, via this web application. The broader intention being an application that medical and research professionals can access to acquire either summary information about the changes in MIC values over time, or large datasets for research purposes.</p>
+  <p> The reports from the Vitek platform have been regularly archived onto CD-ROMs at the lab in Bristol, and they have accumulated many years of data. The isolate report information is contained in XML files that can be interpreted by the Vitek software. With these XML files we have populated a noSQL database that can be accessed here, via this web application. The broader intention being an application that medical and research professionals can access to acquire either summary information about the changes in MIC values over time, or large datasets for research purposes.</p>
 </div>
 <div class="container">
   <h3 class="text-center">
     Start here....
   </h3>
+  <p class="text-center">Use the search tools below to query the database. Currently the Vitek database contains data for the years 2015 through 2017</p>
   <form action="/vitek/organism" method="post">
     <div class="form-group">
       <label class="lead mt-2" for="selectDrug"><img style="width: 30px" src="./img/bug-search.png"> Choose organism</label>

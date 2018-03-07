@@ -26,7 +26,7 @@ router.get('/register', (request, response) => {
 //LOGIN POST REQUEST
 router.post('/login', (request, response, next) => {
   passport.authenticate('local', {
-    successRedirect: '/vitek',
+    successRedirect: '/datasets',
     failureRedirect: '/users/login',
     failureFlash: true
   })(request, response, next);
@@ -70,8 +70,8 @@ router.post('/register', (request, response) => {
             newUser.password = hash;
             newUser.save()
             .then(user => {
-              request.flash('success_msg', "You're noew registered and can login");
-              response.redirect('/users/login');
+              request.flash('success_msg', "You're now registered and can login");
+              response.redirect('users/login');
             })
             .catch(err => {
               console.log(err);
@@ -84,5 +84,11 @@ router.post('/register', (request, response) => {
 
   }
 });
+
+router.get('/logout', (request, response) => {
+  request.logout();
+  request.flash('success_msg', "You have been logged out");
+  response.render('users/login');
+})
 
 module.exports = router;
