@@ -14,6 +14,13 @@ These instructions will get you a copy of the project up and running on your loc
 * NodeJS v9.5.0
 * MongoDB v3.6.3
 
+Python dependencies:
+* pymongo v3.6.0
+* pandas v0.20.1
+* matplotlib v2.1.0
+* numpy v1.12.1
+* seaborn v0.8
+
 ### Installing
 
 Clone the repository and use node package manager to install node dependencies
